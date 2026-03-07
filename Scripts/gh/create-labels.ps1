@@ -1,0 +1,8 @@
+gh label create epic --color D73A4A --description "Large feature grouping"
+gh label create story --color 1D76DB --description "Feature level work item"
+gh label create bug --color B60205 --description "Something is not working"
+gh label create chore --color 6F42C1 --description "Maintenance or cleanup task"
+gh label create gameplay --color FBCA04 --description "Gameplay system work"
+gh label create ui --color 5319E7 --description "User interface work"
+gh label create economy --color 006B75 --description "Game economy and progression"
+gh label create technical --color BFD4F2 --description "Engine or technical systems"
