@@ -39,8 +39,12 @@ public class PlayerAutoAttack : MonoBehaviour
         Transform target = FindTargetInRange();
         if (target != null)
         {
-            // Implement attack logic here (e.g., reduce enemy health)
-                Debug.Log("Attacked " + target.name);
+            // Attack target logic here (e.g., reduce health, play animation)
+            EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)            {
+                enemyHealth.TakeDamage(10f); // Damage value
+            }
+            Debug.Log("Attacked " + target.name);
         }else
         {
             Debug.Log("No target in range for auto attack.");
