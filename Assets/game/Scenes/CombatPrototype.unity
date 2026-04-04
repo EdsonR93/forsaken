@@ -233,6 +233,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8717663361120014766, guid: 2d3830cc965d3ff43a979e63fa608759, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1597421045}
+    - targetCorrespondingSourceObject: {fileID: 8717663361120014766, guid: 2d3830cc965d3ff43a979e63fa608759, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1597421047}
   m_SourcePrefab: {fileID: 100100000, guid: 2d3830cc965d3ff43a979e63fa608759, type: 3}
 --- !u!224 &114462337 stripped
 RectTransform:
@@ -707,6 +710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 5836857197505123814, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -738,7 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAutoAttack
   attackInterval: 1
-  attackRange: 15
+  attackRange: 4
 --- !u!1 &1597421042 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8717663361120014766, guid: 2d3830cc965d3ff43a979e63fa608759, type: 3}
@@ -794,6 +801,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!114 &1597421047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597421042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 250e1450c5c25eb4691d50ef64156aaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyMover
+  moveSpeed: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
