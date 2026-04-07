@@ -53,15 +53,24 @@ public class PlayerAutoAttack : MonoBehaviour
 
     Transform FindTargetInRange()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, attackRange);
+        Vector2 playerPosition = transform.position;
+        float closestEnemyDistance = float.MaxValue;
+        Transform closestEnemy = null;
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(playerPosition, attackRange);
         foreach (var hitCollider in hitColliders)
+    {
+        if (!hitCollider.CompareTag("Enemy")) continue;
+
+        float distanceToEnemy = Vector2.Distance(playerPosition, hitCollider.transform.position);
+
+        if (distanceToEnemy < closestEnemyDistance)
         {
-            if (hitCollider.CompareTag("Enemy"))
-            {
-                return hitCollider.transform;
-            }
+            closestEnemyDistance = distanceToEnemy;
+            closestEnemy = hitCollider.transform;
         }
-        return null;
+    }
+        return closestEnemy;
     }
 
     void OnDrawGizmosSelected()
