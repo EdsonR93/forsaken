@@ -40,10 +40,12 @@ public class PlayerAutoAttack : MonoBehaviour
         if (target != null)
         {
             // Attack target logic here (e.g., reduce health, play animation)
+            
             CombatEvents.TriggerAttack(transform, target);
 
             EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)            {
+            if (enemyHealth != null){
+                CombatEvents.TriggerHit(transform, target, 10f);
                 enemyHealth.TakeDamage(10f); // Damage value
             }
         }else

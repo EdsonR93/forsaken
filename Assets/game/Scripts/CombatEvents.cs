@@ -24,6 +24,7 @@ public static class CombatEvents
     // Call this method to trigger the OnHit event
     public static void TriggerHit(Transform attacker, Transform target, float damage)
     {
+        Debug.Log("Hit event triggered: " + attacker.name + " hit " + target.name + " for " + damage);
         OnHit?.Invoke(attacker, target, damage);
     }
 
