@@ -22,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
         isDead = true;
 
         Debug.Log(gameObject.name + " has died.");
+        CombatEvents.TriggerDeath(transform);
         Destroy(gameObject);
     }
 

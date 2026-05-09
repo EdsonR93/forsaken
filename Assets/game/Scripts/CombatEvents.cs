@@ -31,6 +31,7 @@ public static class CombatEvents
     // Call this method to trigger the OnDeath event
     public static void TriggerDeath(Transform character)
     {
+        Debug.Log("Death event triggered: " + character.name);
         OnDeath?.Invoke(character);
     }
 
