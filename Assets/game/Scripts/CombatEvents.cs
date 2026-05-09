@@ -1,3 +1,5 @@
+
+using System;
 using UnityEngine;
 
 public static class CombatEvents
@@ -14,7 +16,9 @@ public static class CombatEvents
     // Call this method to trigger the OnAttack event
     public static void TriggerAttack(Transform attacker, Transform target)
     {
+        Debug.Log("Attack event triggered: " + attacker.name + " -> " + target.name);
         OnAttack?.Invoke(attacker, target);
+        
     }
 
     // Call this method to trigger the OnHit event

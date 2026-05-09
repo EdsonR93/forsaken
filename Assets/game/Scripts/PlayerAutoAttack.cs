@@ -40,11 +40,12 @@ public class PlayerAutoAttack : MonoBehaviour
         if (target != null)
         {
             // Attack target logic here (e.g., reduce health, play animation)
+            CombatEvents.TriggerAttack(transform, target);
+
             EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
             if (enemyHealth != null)            {
                 enemyHealth.TakeDamage(10f); // Damage value
             }
-            Debug.Log("Attacked " + target.name);
         }else
         {
             Debug.Log("No target in range for auto attack.");
@@ -59,17 +60,17 @@ public class PlayerAutoAttack : MonoBehaviour
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(playerPosition, attackRange);
         foreach (var hitCollider in hitColliders)
-    {
-        if (!hitCollider.CompareTag("Enemy")) continue;
-
-        float distanceToEnemy = Vector2.Distance(playerPosition, hitCollider.transform.position);
-
-        if (distanceToEnemy < closestEnemyDistance)
         {
-            closestEnemyDistance = distanceToEnemy;
-            closestEnemy = hitCollider.transform;
+            if (!hitCollider.CompareTag("Enemy")) continue;
+
+            float distanceToEnemy = Vector2.Distance(playerPosition, hitCollider.transform.position);
+
+            if (distanceToEnemy < closestEnemyDistance)
+            {
+                closestEnemyDistance = distanceToEnemy;
+                closestEnemy = hitCollider.transform;
+            }
         }
-    }
         return closestEnemy;
     }
 
