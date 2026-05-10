@@ -6,6 +6,16 @@ public class EnemyHealth : MonoBehaviour
     private float currentHealth;
     private bool isDead = false;
 
+    void OnEnable()
+    {
+        CombatEvents.OnHit += HandleHit;
+    }
+
+    void OnDisable()
+    {
+        CombatEvents.OnHit -= HandleHit;
+    }
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -16,12 +26,20 @@ public class EnemyHealth : MonoBehaviour
         
     }
 
+    void HandleHit(Transform attacker, Transform target, float damage)
+    {
+        if (target != transform) return;
+
+        TakeDamage(damage);
+    }
+
     void Die()
     {
         if (isDead) return;
         isDead = true;
 
         Debug.Log(gameObject.name + " has died.");
+        CombatEvents.TriggerDeath(transform);
         Destroy(gameObject);
     }
 

@@ -12,13 +12,11 @@ public class PlayerAutoAttack : MonoBehaviour
         {
             Debug.LogError("Attack interval must be greater than zero.");
             attackInterval = 1; // Default to 1 second if invalid
-            return;
         }
         if (attackRange <= 0)
         {
             Debug.LogError("Attack range must be greater than zero.");
             attackRange = 1; // Default to 1 unit if invalid
-            return;
         }
         attackTimer = attackInterval;
     }
@@ -34,21 +32,18 @@ public class PlayerAutoAttack : MonoBehaviour
         
     }
 
-    void PerformAttack()
+   void PerformAttack()
     {
         Transform target = FindTargetInRange();
-        if (target != null)
-        {
-            // Attack target logic here (e.g., reduce health, play animation)
-            EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)            {
-                enemyHealth.TakeDamage(10f); // Damage value
-            }
-            Debug.Log("Attacked " + target.name);
-        }else
+
+        if (target == null)
         {
             Debug.Log("No target in range for auto attack.");
+            return;
         }
+
+        CombatEvents.TriggerAttack(transform, target);
+        CombatEvents.TriggerHit(transform, target, 10f);
     }
 
     Transform FindTargetInRange()
@@ -59,17 +54,17 @@ public class PlayerAutoAttack : MonoBehaviour
 
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(playerPosition, attackRange);
         foreach (var hitCollider in hitColliders)
-    {
-        if (!hitCollider.CompareTag("Enemy")) continue;
-
-        float distanceToEnemy = Vector2.Distance(playerPosition, hitCollider.transform.position);
-
-        if (distanceToEnemy < closestEnemyDistance)
         {
-            closestEnemyDistance = distanceToEnemy;
-            closestEnemy = hitCollider.transform;
+            if (!hitCollider.CompareTag("Enemy")) continue;
+
+            float distanceToEnemy = Vector2.Distance(playerPosition, hitCollider.transform.position);
+
+            if (distanceToEnemy < closestEnemyDistance)
+            {
+                closestEnemyDistance = distanceToEnemy;
+                closestEnemy = hitCollider.transform;
+            }
         }
-    }
         return closestEnemy;
     }
 
