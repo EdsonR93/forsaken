@@ -4,6 +4,7 @@ public class CombatEventLogger : MonoBehaviour
 {
     void OnEnable()
     {
+        Debug.Log("CombatEventLogger subscribed");
         CombatEvents.OnAttack += HandleAttack;
         CombatEvents.OnHit += HandleHit;
         CombatEvents.OnDeath += HandleDeath;
@@ -11,6 +12,7 @@ public class CombatEventLogger : MonoBehaviour
 
     void OnDisable()
     {
+        Debug.Log("CombatEventLogger subscribed");
         CombatEvents.OnAttack -= HandleAttack;
         CombatEvents.OnHit -= HandleHit;
         CombatEvents.OnDeath -= HandleDeath;

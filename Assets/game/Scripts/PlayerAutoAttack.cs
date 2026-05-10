@@ -12,13 +12,11 @@ public class PlayerAutoAttack : MonoBehaviour
         {
             Debug.LogError("Attack interval must be greater than zero.");
             attackInterval = 1; // Default to 1 second if invalid
-            return;
         }
         if (attackRange <= 0)
         {
             Debug.LogError("Attack range must be greater than zero.");
             attackRange = 1; // Default to 1 unit if invalid
-            return;
         }
         attackTimer = attackInterval;
     }
@@ -34,24 +32,18 @@ public class PlayerAutoAttack : MonoBehaviour
         
     }
 
-    void PerformAttack()
+   void PerformAttack()
     {
         Transform target = FindTargetInRange();
-        if (target != null)
-        {
-            // Attack target logic here (e.g., reduce health, play animation)
-            
-            CombatEvents.TriggerAttack(transform, target);
 
-            EnemyHealth enemyHealth = target.GetComponent<EnemyHealth>();
-            if (enemyHealth != null){
-                CombatEvents.TriggerHit(transform, target, 10f);
-                enemyHealth.TakeDamage(10f); // Damage value
-            }
-        }else
+        if (target == null)
         {
             Debug.Log("No target in range for auto attack.");
+            return;
         }
+
+        CombatEvents.TriggerAttack(transform, target);
+        CombatEvents.TriggerHit(transform, target, 10f);
     }
 
     Transform FindTargetInRange()
