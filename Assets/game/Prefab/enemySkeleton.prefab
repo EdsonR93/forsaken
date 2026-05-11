@@ -1764,6 +1764,7 @@ GameObject:
   - component: {fileID: 1434641735291586628}
   - component: {fileID: 910022103606978633}
   - component: {fileID: 5366835070690129516}
+  - component: {fileID: -4331950187728672861}
   m_Layer: 5
   m_Name: enemySkeleton
   m_TagString: Enemy
@@ -4759,6 +4760,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250e1450c5c25eb4691d50ef64156aaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMover
+  enemyStats: {fileID: 11400000, guid: 966554bea77238a44a8c61f0d52ea1cf, type: 2}
+--- !u!114 &-4331950187728672861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971409653560928207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 424c26f00f348b94ea2a1cfb0e28d328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   enemyStats: {fileID: 11400000, guid: 966554bea77238a44a8c61f0d52ea1cf, type: 2}
 --- !u!1 &1987042151345004209
 GameObject:
