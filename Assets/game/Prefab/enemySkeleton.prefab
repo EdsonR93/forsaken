@@ -4709,7 +4709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46abdd5f169faa44c998029c709af571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 50
+  enemyStats: {fileID: 11400000, guid: 966554bea77238a44a8c61f0d52ea1cf, type: 2}
 --- !u!70 &910022103606978633
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

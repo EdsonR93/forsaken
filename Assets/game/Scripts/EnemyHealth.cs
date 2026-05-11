@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private EnemyStats enemyStats;
     private float currentHealth;
     private bool isDead = false;
 
@@ -18,7 +18,13 @@ public class EnemyHealth : MonoBehaviour
 
     void Start()
     {
-        currentHealth = maxHealth;
+        if (enemyStats == null)
+        {
+            Debug.LogError(gameObject.name + " is missing EnemyStats.");
+            enabled = false;
+            return;
+        }
+        currentHealth = enemyStats.MaxHealth;
     }
 
     void Update()
