@@ -9,4 +9,8 @@ public class EnemyStats : ScriptableObject
     [SerializeField] private float movementSpeed = 2f;
     [SerializeField] private bool isBoss = false;
 
+    public float MaxHealth => maxHealth;
+    public float AttackDamage => attackDamage;
+    public float MovementSpeed => movementSpeed;
+    public bool IsBoss => isBoss;
 }
