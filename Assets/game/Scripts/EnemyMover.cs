@@ -2,12 +2,22 @@ using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 0.5f;
+    [SerializeField] private EnemyStats enemyStats;
+    private float moveSpeed;
     private Transform playerTarget;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (enemyStats == null)
+        {
+            Debug.LogError(gameObject.name + " is missing EnemyStats.");
+            enabled = false;
+            return;
+        }
+
+        moveSpeed = enemyStats.MovementSpeed;
+
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 
         if (playerObj != null)
@@ -17,6 +27,7 @@ public class EnemyMover : MonoBehaviour
         else
         {
             Debug.LogError("Player object not found in the scene.");
+            enabled = false;
         }
     }
 
