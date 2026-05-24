@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private EnemyStats enemyStats;
+    [SerializeField] private float stoppingDistance = 0.75f;
     private float moveSpeed;
     private Transform playerTarget;
 
@@ -34,15 +35,18 @@ public class EnemyMover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerTarget != null)
-        {
-            Vector2 nextPosition = Vector2.MoveTowards(
-                transform.position,
-                playerTarget.position,
-                moveSpeed * Time.deltaTime
-            );
-            transform.position = nextPosition;
-        }
+        if (playerTarget == null) return;
+        
+        float distanceToPlayer = Vector2.Distance(transform.position, playerTarget.position);
+        if (distanceToPlayer <= stoppingDistance) return;
+
+        Vector2 nextPosition = Vector2.MoveTowards(
+            transform.position,
+            playerTarget.position,
+            moveSpeed * Time.deltaTime
+        );
+        transform.position = nextPosition;
+        
         
     }
 }

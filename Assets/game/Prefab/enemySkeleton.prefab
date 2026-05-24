@@ -4762,6 +4762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMover
   enemyStats: {fileID: 11400000, guid: 966554bea77238a44a8c61f0d52ea1cf, type: 2}
+  stoppingDistance: 2.5
 --- !u!114 &-4331950187728672861
 MonoBehaviour:
   m_ObjectHideFlags: 0
