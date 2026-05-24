@@ -43,6 +43,8 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
+        transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+        GetComponent<PlayerAutoAttack>().enabled = false;
 
         Debug.Log(gameObject.name + " has died.");
         CombatEvents.TriggerDeath(transform);
@@ -51,6 +53,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
+
         if (damage < 0)
         {
             Debug.LogWarning("Damage must be greater than zero.");
