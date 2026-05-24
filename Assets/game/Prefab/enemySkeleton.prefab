@@ -4776,6 +4776,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAttack
   enemyStats: {fileID: 11400000, guid: 966554bea77238a44a8c61f0d52ea1cf, type: 2}
+  attackRange: 2.6
+  attackInterval: 1.5
 --- !u!114 &-4632863046824613060
 MonoBehaviour:
   m_ObjectHideFlags: 0
