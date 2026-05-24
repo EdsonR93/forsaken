@@ -33,6 +33,18 @@ public class EnemyAttack : MonoBehaviour
             enabled = false;
         }
 
+        if (attackInterval <= 0)
+        {
+            Debug.LogError(gameObject.name + " attack interval must be greater than zero.");
+            attackInterval = 1f;
+        }
+
+        if (attackRange <= 0)
+        {
+            Debug.LogError(gameObject.name + " attack range must be greater than zero.");
+            attackRange = 2.6f;
+        }
+
         attackTimer = attackInterval; // Start the timer so the enemy can attack immediately
     }
 
