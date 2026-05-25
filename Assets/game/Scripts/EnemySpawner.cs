@@ -4,6 +4,9 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float spawnInterval = 5f;
+    [SerializeField] private int maxActiveEnemies = 5;
+
+    private int activeEnemyCount = 0;
     private float spawnTimer;
     private bool playerIsDead;
 
@@ -20,6 +23,12 @@ public class EnemySpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (maxActiveEnemies <= 0)
+        {
+            Debug.LogError("Max active enemies must be greater than zero.");
+            maxActiveEnemies = 1;
+        }
+
         spawnTimer = spawnInterval;
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
         if (playerObj == null)
@@ -59,6 +68,12 @@ public class EnemySpawner : MonoBehaviour
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0)
         {
+            if (activeEnemyCount >= maxActiveEnemies)
+            {
+                //Debug.Log("Maximum active enemies reached. Waiting to spawn.");
+                spawnTimer = spawnInterval;
+                return;
+            }
             SpawnEnemy();
             spawnTimer = spawnInterval;
         }
@@ -68,12 +83,23 @@ public class EnemySpawner : MonoBehaviour
     {
         if (playerIsDead) return;
         GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        activeEnemyCount++;
     }
     void HandleDeath(Transform character)
     {
         if (character.CompareTag("Player"))
         {
             playerIsDead = true;
+        }
+
+        if (character.CompareTag("Enemy"))
+        {
+            activeEnemyCount--;
+
+            if (activeEnemyCount < 0)
+            {
+                activeEnemyCount = 0;
+            }
         }
     }
 }
