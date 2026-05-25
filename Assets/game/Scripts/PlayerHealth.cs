@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void HandleHit(Transform attacker, Transform target, float damage)
@@ -46,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         transform.rotation = Quaternion.Euler(0f, 0f, -90f);
         GetComponent<PlayerAutoAttack>().enabled = false;
-        
+
         Debug.Log(gameObject.name + " has died.");
         CombatEvents.TriggerDeath(transform);
         // Implement respawn or game over logic here

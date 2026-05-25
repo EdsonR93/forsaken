@@ -5,12 +5,12 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private EnemyStats enemyStats;
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private float attackInterval = 1.5f;
-    
+
     private float attackDamage;
     private float attackTimer;
     private Transform playerTarget;
     private bool playerIsDead;
-    
+
     void OnEnable()
     {
         CombatEvents.OnDeath += HandleDeath;
@@ -81,7 +81,7 @@ public class EnemyAttack : MonoBehaviour
             Attack();
             attackTimer = 0f; // Reset the timer after attacking
         }
-        
+
     }
 
     void Attack()

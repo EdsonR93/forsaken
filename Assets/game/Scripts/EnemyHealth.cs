@@ -29,7 +29,7 @@ public class EnemyHealth : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 
     void HandleHit(Transform attacker, Transform target, float damage)
@@ -44,6 +44,18 @@ public class EnemyHealth : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
+        EnemyMover mover = GetComponent<EnemyMover>();
+        if (mover != null)
+        {
+            mover.enabled = false;
+        }
+
+        EnemyAttack attack = GetComponent<EnemyAttack>();
+        if (attack != null)
+        {
+            attack.enabled = false;
+        }
+
         Debug.Log(gameObject.name + " has died.");
         CombatEvents.TriggerDeath(transform);
         Destroy(gameObject);
@@ -57,7 +69,7 @@ public class EnemyHealth : MonoBehaviour
             return;
         }
         currentHealth -= damage;
-        Debug.Log(gameObject.name + " took " + damage + " damage. Current health: " + currentHealth);
+        //Debug.Log(gameObject.name + " took " + damage + " damage. Current health: " + currentHealth);
         if (currentHealth <= 0)
         {
 
