@@ -9,6 +9,17 @@ public class EnemyAttack : MonoBehaviour
     private float attackDamage;
     private float attackTimer;
     private Transform playerTarget;
+    private bool playerIsDead;
+    
+    void OnEnable()
+    {
+        CombatEvents.OnDeath += HandleDeath;
+    }
+
+    void OnDisable()
+    {
+        CombatEvents.OnDeath -= HandleDeath;
+    }
 
     void Start()
     {
@@ -20,17 +31,26 @@ public class EnemyAttack : MonoBehaviour
         }
 
         attackDamage = enemyStats.AttackDamage;
-        Debug.Log(gameObject.name + " attack damage loaded: " + attackDamage);
+        //Debug.Log(gameObject.name + " attack damage loaded: " + attackDamage);
 
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        if (playerObj != null)
-        {
-            playerTarget = playerObj.transform;
-        }
-        else
+        if (playerObj == null)
         {
             Debug.LogError("Player object not found in the scene.");
             enabled = false;
+            return;
+        }
+        playerTarget = playerObj.transform;
+        PlayerHealth playerHealth = playerTarget.GetComponent<PlayerHealth>();
+
+        if (playerHealth != null)
+        {
+            playerIsDead = playerHealth.IsDead;
+            //Debug.Log(gameObject.name + " detected player death state on spawn: " + playerIsDead);
+        }
+        else
+        {
+            Debug.LogWarning("PlayerHealth component not found on Player.");
         }
 
         if (attackInterval <= 0)
@@ -51,6 +71,7 @@ public class EnemyAttack : MonoBehaviour
     void Update()
     {
         if (playerTarget == null) return;
+        if (playerIsDead) return;
 
         attackTimer += Time.deltaTime;
 
@@ -65,8 +86,18 @@ public class EnemyAttack : MonoBehaviour
 
     void Attack()
     {
+        if (playerIsDead) return;
+
         CombatEvents.TriggerAttack(transform, playerTarget);
         CombatEvents.TriggerHit(transform, playerTarget, attackDamage);
         Debug.Log(gameObject.name + " attacked " + playerTarget.name + " for " + attackDamage + " damage.");
+    }
+
+    void HandleDeath(Transform character)
+    {
+        if (character.CompareTag("Player"))
+        {
+            playerIsDead = true;
+        }
     }
 }

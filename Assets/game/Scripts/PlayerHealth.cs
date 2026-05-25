@@ -5,6 +5,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
     private bool isDead = false;
+    public bool IsDead => isDead;
 
     void OnEnable()
     {
@@ -45,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
         transform.rotation = Quaternion.Euler(0f, 0f, -90f);
         GetComponent<PlayerAutoAttack>().enabled = false;
-
+        
         Debug.Log(gameObject.name + " has died.");
         CombatEvents.TriggerDeath(transform);
         // Implement respawn or game over logic here
