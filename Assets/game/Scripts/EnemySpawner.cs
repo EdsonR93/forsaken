@@ -91,5 +91,15 @@ public class EnemySpawner : MonoBehaviour
         {
             playerIsDead = true;
         }
+
+        if (character.CompareTag("Enemy"))
+        {
+            activeEnemyCount--;
+
+            if (activeEnemyCount < 0)
+            {
+                activeEnemyCount = 0;
+            }
+        }
     }
 }
