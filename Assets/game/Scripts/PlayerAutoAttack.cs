@@ -29,16 +29,16 @@ public class PlayerAutoAttack : MonoBehaviour
             PerformAttack();
             attackTimer = attackInterval;
         }
-        
+
     }
 
-   void PerformAttack()
+    void PerformAttack()
     {
         Transform target = FindTargetInRange();
 
         if (target == null)
         {
-            Debug.Log("No target in range for auto attack.");
+            //Debug.Log("No target in range for auto attack.");
             return;
         }
 

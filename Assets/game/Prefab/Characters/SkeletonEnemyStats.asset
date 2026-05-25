@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6217254614b453b4982de6783125d881, type: 3}
   m_Name: SkeletonEnemyStats
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  maxHealth: 100
+  maxHealth: 50
   attackDamage: 10
   movementSpeed: 2
   isBoss: 0
