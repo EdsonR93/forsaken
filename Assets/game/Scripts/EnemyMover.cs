@@ -40,6 +40,13 @@ public class EnemyMover : MonoBehaviour
         {
             Debug.LogError("Player object not found in the scene.");
             enabled = false;
+            return;
+        }
+        PlayerHealth playerHealth = playerTarget.GetComponent<PlayerHealth>();
+
+        if (playerHealth != null)
+        {
+            playerIsDead = playerHealth.IsDead;
         }
     }
 
