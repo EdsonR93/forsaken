@@ -6,6 +6,17 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] private float stoppingDistance = 0.75f;
     private float moveSpeed;
     private Transform playerTarget;
+    private bool playerIsDead;
+
+    void OnEnable()
+    {
+        CombatEvents.OnDeath += HandleDeath;
+    }
+
+    void OnDisable()
+    {
+        CombatEvents.OnDeath -= HandleDeath;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,7 +47,8 @@ public class EnemyMover : MonoBehaviour
     void Update()
     {
         if (playerTarget == null) return;
-        
+        if (playerIsDead) return;
+
         float distanceToPlayer = Vector2.Distance(transform.position, playerTarget.position);
         if (distanceToPlayer <= stoppingDistance) return;
 
@@ -46,7 +58,15 @@ public class EnemyMover : MonoBehaviour
             moveSpeed * Time.deltaTime
         );
         transform.position = nextPosition;
-        
-        
+
+
+    }
+
+    void HandleDeath(Transform character)
+    {
+        if (character.CompareTag("Player"))
+        {
+            playerIsDead = true;
+        }
     }
 }
