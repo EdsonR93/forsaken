@@ -5,6 +5,13 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float spawnInterval = 5f;
     [SerializeField] private int maxActiveEnemies = 5;
+    [SerializeField] private int enemiesPerWave = 5;
+    [SerializeField] private float timeBetweenWaves = 3f;
+
+    private int currentWave = 1;
+    private int enemiesSpawnedThisWave;
+    private int enemiesDefeatedThisWave;
+    private bool waveInProgress;
 
     private int activeEnemyCount = 0;
     private float spawnTimer;
