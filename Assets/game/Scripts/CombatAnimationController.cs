@@ -6,6 +6,8 @@ public class CombatAnimationController : MonoBehaviour
 {
     [SerializeField] private int attackAnimationIndex = 0;
     [SerializeField] private int deathAnimationIndex = 0;
+    private EnemyMover enemyMover;
+    private bool wasMoving;
 
     private SPUM_Prefabs spum;
     void Awake()
@@ -18,6 +20,8 @@ public class CombatAnimationController : MonoBehaviour
             return;
         }
         spum.OverrideControllerInit();
+        enemyMover = GetComponent<EnemyMover>();
+
     }
     void OnEnable()
     {
@@ -40,7 +44,22 @@ public class CombatAnimationController : MonoBehaviour
 
     void Update()
     {
+        if (enemyMover == null) return;
 
+        bool isMoving = enemyMover.IsMoving;
+
+        if (isMoving == wasMoving) return;
+
+        wasMoving = isMoving;
+
+        if (isMoving)
+        {
+            spum.PlayAnimation(PlayerState.MOVE, 0);
+        }
+        else
+        {
+            spum.PlayAnimation(PlayerState.IDLE, 0);
+        }
     }
 
     void HandleAttack(Transform attacker, Transform target)

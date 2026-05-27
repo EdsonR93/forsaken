@@ -7,6 +7,7 @@ public class EnemyMover : MonoBehaviour
     private float moveSpeed;
     private Transform playerTarget;
     private bool playerIsDead;
+    public bool IsMoving { get; private set; }
 
     void OnEnable()
     {
@@ -64,9 +65,9 @@ public class EnemyMover : MonoBehaviour
             playerTarget.position,
             moveSpeed * Time.deltaTime
         );
+
+        IsMoving = (Vector2)transform.position != nextPosition;
         transform.position = nextPosition;
-
-
     }
 
     void HandleDeath(Transform character)
