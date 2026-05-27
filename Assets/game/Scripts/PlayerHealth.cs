@@ -44,7 +44,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
-        transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+        //transform.rotation = Quaternion.Euler(0f, 0f, -90f);
         GetComponent<PlayerAutoAttack>().enabled = false;
 
         Debug.Log(gameObject.name + " has died.");
