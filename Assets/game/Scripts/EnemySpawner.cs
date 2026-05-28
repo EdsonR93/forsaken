@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     private int enemiesSpawnedThisWave;
     private int enemiesDefeatedThisWave;
     private bool waveInProgress;
-
+    private float waveDelayTimer;
     private int activeEnemyCount = 0;
     private float spawnTimer;
     private bool playerIsDead;
@@ -49,7 +49,9 @@ public class EnemySpawner : MonoBehaviour
         PlayerHealth playerHealth = playerObj.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
-            if (playerIsDead = playerHealth.IsDead)
+            playerIsDead = playerHealth.IsDead;
+
+            if (playerIsDead)
             {
                 Debug.Log("Player is already dead at spawner start. No enemies will spawn.");
                 return;
@@ -69,11 +71,26 @@ public class EnemySpawner : MonoBehaviour
 
         Debug.Log("Spawning enemy at: " + transform.position);
         SpawnEnemy();
+
+        if (spawnInterval <= 0) spawnInterval = 1f;
+        if (enemiesPerWave <= 0) enemiesPerWave = 1;
+        if (timeBetweenWaves < 0) timeBetweenWaves = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!waveInProgress)
+        {
+            waveDelayTimer -= Time.deltaTime;
+
+            if (waveDelayTimer <= 0)
+            {
+                StartNextWave();
+            }
+
+            return;
+        }
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0)
         {
@@ -95,7 +112,7 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         if (playerIsDead) return;
-        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
         activeEnemyCount++;
         enemiesSpawnedThisWave++;
     }
@@ -116,7 +133,32 @@ public class EnemySpawner : MonoBehaviour
             }
 
             enemiesDefeatedThisWave++;
-            Debug.Log("Wave " + currentWave + " defeated enemies: " + enemiesDefeatedThisWave);
+            //Debug.Log("Wave " + currentWave + " defeated enemies: " + enemiesDefeatedThisWave);
+            CheckWaveComplete();
         }
+    }
+
+    void CheckWaveComplete()
+    {
+        if (!waveInProgress) return;
+
+        if (enemiesDefeatedThisWave >= enemiesPerWave)
+        {
+            waveInProgress = false;
+            waveDelayTimer = timeBetweenWaves;
+
+            Debug.Log("Wave " + currentWave + " complete. Next wave starts soon.");
+        }
+    }
+    void StartNextWave()
+    {
+        currentWave++;
+
+        enemiesSpawnedThisWave = 0;
+        enemiesDefeatedThisWave = 0;
+
+        waveInProgress = true;
+
+        Debug.Log("Starting Wave " + currentWave);
     }
 }
