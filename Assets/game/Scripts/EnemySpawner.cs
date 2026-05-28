@@ -30,6 +30,8 @@ public class EnemySpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        waveInProgress = true;
+
         if (maxActiveEnemies <= 0)
         {
             Debug.LogError("Max active enemies must be greater than zero.");
@@ -81,6 +83,10 @@ public class EnemySpawner : MonoBehaviour
                 spawnTimer = spawnInterval;
                 return;
             }
+            if (enemiesSpawnedThisWave >= enemiesPerWave)
+            {
+                return;
+            }
             SpawnEnemy();
             spawnTimer = spawnInterval;
         }
@@ -91,6 +97,7 @@ public class EnemySpawner : MonoBehaviour
         if (playerIsDead) return;
         GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
         activeEnemyCount++;
+        enemiesSpawnedThisWave++;
     }
     void HandleDeath(Transform character)
     {
@@ -107,6 +114,9 @@ public class EnemySpawner : MonoBehaviour
             {
                 activeEnemyCount = 0;
             }
+
+            enemiesDefeatedThisWave++;
+            Debug.Log("Wave " + currentWave + " defeated enemies: " + enemiesDefeatedThisWave);
         }
     }
 }
