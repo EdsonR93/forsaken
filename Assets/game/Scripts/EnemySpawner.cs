@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnInterval = 5f;
     [SerializeField] private int maxActiveEnemies = 5;
     [SerializeField] private int enemiesPerWave = 5;
+    [SerializeField] private int enemiesAddedPerWave = 1;
     [SerializeField] private float timeBetweenWaves = 3f;
 
     private int currentWave = 1;
@@ -100,7 +101,7 @@ public class EnemySpawner : MonoBehaviour
                 spawnTimer = spawnInterval;
                 return;
             }
-            if (enemiesSpawnedThisWave >= enemiesPerWave)
+            if (enemiesSpawnedThisWave >= GetEnemiesForCurrentWave())
             {
                 return;
             }
@@ -142,7 +143,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!waveInProgress) return;
 
-        if (enemiesDefeatedThisWave >= enemiesPerWave)
+        if (enemiesDefeatedThisWave >= GetEnemiesForCurrentWave())
         {
             waveInProgress = false;
             waveDelayTimer = timeBetweenWaves;
@@ -160,5 +161,9 @@ public class EnemySpawner : MonoBehaviour
         waveInProgress = true;
 
         Debug.Log("Starting Wave " + currentWave);
+    }
+    int GetEnemiesForCurrentWave()
+    {
+        return enemiesPerWave + ((currentWave - 1) * enemiesAddedPerWave);
     }
 }
