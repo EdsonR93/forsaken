@@ -58,7 +58,7 @@ public class EnemyHealth : MonoBehaviour
 
         Debug.Log(gameObject.name + " has died.");
         CombatEvents.TriggerDeath(transform);
-        Destroy(gameObject);
+        Destroy(gameObject, 1f);
     }
 
     public void TakeDamage(float damage)

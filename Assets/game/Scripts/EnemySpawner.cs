@@ -5,7 +5,18 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float spawnInterval = 5f;
     [SerializeField] private int maxActiveEnemies = 5;
+    [SerializeField] private int enemiesPerWave = 5;
+    [SerializeField] private int enemiesAddedPerWave = 1;
+    [SerializeField] private float timeBetweenWaves = 3f;
+    [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private int bossWaveInterval = 5;
 
+    bool bossSpawnedThisWave;
+    private int currentWave = 1;
+    private int enemiesSpawnedThisWave;
+    private int enemiesDefeatedThisWave;
+    private bool waveInProgress;
+    private float waveDelayTimer;
     private int activeEnemyCount = 0;
     private float spawnTimer;
     private bool playerIsDead;
@@ -23,6 +34,8 @@ public class EnemySpawner : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        waveInProgress = true;
+
         if (maxActiveEnemies <= 0)
         {
             Debug.LogError("Max active enemies must be greater than zero.");
@@ -40,7 +53,9 @@ public class EnemySpawner : MonoBehaviour
         PlayerHealth playerHealth = playerObj.GetComponent<PlayerHealth>();
         if (playerHealth != null)
         {
-            if (playerIsDead = playerHealth.IsDead)
+            playerIsDead = playerHealth.IsDead;
+
+            if (playerIsDead)
             {
                 Debug.Log("Player is already dead at spawner start. No enemies will spawn.");
                 return;
@@ -58,6 +73,16 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
+        if (bossWaveInterval > 0 && bossPrefab == null)
+        {
+            Debug.LogWarning("Boss prefab is not assigned. Boss waves will not spawn bosses.");
+        }
+
+        if (spawnInterval <= 0) spawnInterval = 1f;
+        if (enemiesPerWave <= 0) enemiesPerWave = 1;
+        if (timeBetweenWaves < 0) timeBetweenWaves = 0f;
+
+
         Debug.Log("Spawning enemy at: " + transform.position);
         SpawnEnemy();
     }
@@ -65,6 +90,17 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!waveInProgress)
+        {
+            waveDelayTimer -= Time.deltaTime;
+
+            if (waveDelayTimer <= 0)
+            {
+                StartNextWave();
+            }
+
+            return;
+        }
         spawnTimer -= Time.deltaTime;
         if (spawnTimer <= 0)
         {
@@ -74,7 +110,19 @@ public class EnemySpawner : MonoBehaviour
                 spawnTimer = spawnInterval;
                 return;
             }
-            SpawnEnemy();
+            if (enemiesSpawnedThisWave >= GetEnemiesForCurrentWave())
+            {
+                return;
+            }
+            if (IsBossWave() && !bossSpawnedThisWave && enemiesSpawnedThisWave == GetEnemiesForCurrentWave() - 1)
+            {
+                SpawnBoss();
+            }
+            else
+            {
+                SpawnEnemy();
+            }
+
             spawnTimer = spawnInterval;
         }
     }
@@ -82,8 +130,9 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         if (playerIsDead) return;
-        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
         activeEnemyCount++;
+        enemiesSpawnedThisWave++;
     }
     void HandleDeath(Transform character)
     {
@@ -100,6 +149,67 @@ public class EnemySpawner : MonoBehaviour
             {
                 activeEnemyCount = 0;
             }
+
+            enemiesDefeatedThisWave++;
+            //Debug.Log("Wave " + currentWave + " defeated enemies: " + enemiesDefeatedThisWave);
+            CheckWaveComplete();
         }
+    }
+
+    void CheckWaveComplete()
+    {
+        if (!waveInProgress) return;
+
+        if (enemiesDefeatedThisWave >= GetEnemiesForCurrentWave())
+        {
+            waveInProgress = false;
+            waveDelayTimer = timeBetweenWaves;
+
+            Debug.Log("Wave " + currentWave + " complete. Next wave starts soon.");
+        }
+    }
+    void StartNextWave()
+    {
+        currentWave++;
+        enemiesSpawnedThisWave = 0;
+        enemiesDefeatedThisWave = 0;
+        bossSpawnedThisWave = false;
+
+        if (IsBossWave())
+        {
+            Debug.Log("Boss wave started: Wave " + currentWave);
+        }
+        else
+        {
+            Debug.Log("Starting Wave " + currentWave);
+        }
+
+        waveInProgress = true;
+    }
+    int GetEnemiesForCurrentWave()
+    {
+        return enemiesPerWave + ((currentWave - 1) * enemiesAddedPerWave);
+    }
+    bool IsBossWave()
+    {
+        return bossWaveInterval > 0 && currentWave % bossWaveInterval == 0;
+    }
+    void SpawnBoss()
+    {
+        if (playerIsDead) return;
+
+        if (bossPrefab == null)
+        {
+            Debug.LogWarning("Boss prefab is missing.");
+            return;
+        }
+
+        Instantiate(bossPrefab, transform.position, Quaternion.identity);
+
+        activeEnemyCount++;
+        enemiesSpawnedThisWave++;
+        bossSpawnedThisWave = true;
+
+        Debug.Log("Boss spawned for Wave " + currentWave);
     }
 }
