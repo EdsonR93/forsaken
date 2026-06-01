@@ -10,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float timeBetweenWaves = 3f;
     [SerializeField] private GameObject bossPrefab;
     [SerializeField] private int bossWaveInterval = 5;
+    [SerializeField] private float healthScalingPerWave = 0.15f;
+    [SerializeField] private float damageScalingPerWave = 0.10f;
 
     bool bossSpawnedThisWave;
     private int currentWave = 1;
@@ -81,6 +83,8 @@ public class EnemySpawner : MonoBehaviour
         if (spawnInterval <= 0) spawnInterval = 1f;
         if (enemiesPerWave <= 0) enemiesPerWave = 1;
         if (timeBetweenWaves < 0) timeBetweenWaves = 0f;
+        if (healthScalingPerWave < 0) healthScalingPerWave = 0;
+        if (damageScalingPerWave < 0) damageScalingPerWave = 0;
 
 
         Debug.Log("Spawning enemy at: " + transform.position);
