@@ -5,6 +5,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private EnemyStats enemyStats;
     private float currentHealth;
     private bool isDead = false;
+    public EnemyStats EnemyStats => enemyStats;
 
     void OnEnable()
     {

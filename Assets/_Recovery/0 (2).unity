@@ -293,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 448238085}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.3, y: -5.8, z: 0}
+  m_LocalPosition: {x: 9.66, y: -5.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -312,13 +312,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 1971409653560928207, guid: bd86e0e549661464cb4545c8f023024c, type: 3}
-  spawnInterval: 5
-  maxActiveEnemies: 5
-  enemiesPerWave: 5
+  spawnInterval: 1
+  maxActiveEnemies: 10
+  enemiesPerWave: 3
   enemiesAddedPerWave: 1
   timeBetweenWaves: 3
   bossPrefab: {fileID: 5763772642368634643, guid: 0eefa5e28d29147ad8fda02ec509d1dc, type: 3}
-  bossWaveInterval: 5
+  bossWaveInterval: 3
   healthScalingPerWave: 0.15
   damageScalingPerWave: 0.1
 --- !u!1 &519420028
@@ -620,11 +620,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3431018974941178782, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -5.69946
+      value: -3.7
       objectReference: {fileID: 0}
     - target: {fileID: 3431018974941178782, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.8541403
+      value: -5.4
       objectReference: {fileID: 0}
     - target: {fileID: 3431018974941178782, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -656,6 +656,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5836857197505123814, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1263484664}
+    - targetCorrespondingSourceObject: {fileID: 5836857197505123814, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1263484666}
   m_SourcePrefab: {fileID: 100100000, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
 --- !u!224 &1263484660 stripped
 RectTransform:
@@ -694,6 +697,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100
+--- !u!114 &1263484666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263484661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15e97f42494fa5546a22208c576a88c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatAnimationController
+  attackAnimationIndex: 0
+  deathAnimationIndex: 0
 --- !u!1 &1469452720
 GameObject:
   m_ObjectHideFlags: 0

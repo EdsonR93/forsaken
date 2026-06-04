@@ -134,7 +134,8 @@ public class EnemySpawner : MonoBehaviour
     void SpawnEnemy()
     {
         if (playerIsDead) return;
-        Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        InitializeRuntimeStats(enemy);
         activeEnemyCount++;
         enemiesSpawnedThisWave++;
     }
@@ -215,5 +216,43 @@ public class EnemySpawner : MonoBehaviour
         bossSpawnedThisWave = true;
 
         Debug.Log("Boss spawned for Wave " + currentWave);
+    }
+    float GetHealthMultiplier()
+    {
+        return 1f + ((currentWave - 1) * healthScalingPerWave);
+    }
+
+    float GetDamageMultiplier()
+    {
+        return 1f + ((currentWave - 1) * damageScalingPerWave);
+    }
+    void InitializeRuntimeStats(GameObject enemy)
+    {
+        EnemyRuntimeStats runtimeStats = enemy.GetComponent<EnemyRuntimeStats>();
+        EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+
+        if (runtimeStats == null)
+        {
+            Debug.LogWarning(enemy.name + " is missing EnemyRuntimeStats.");
+            return;
+        }
+
+        if (enemyHealth == null || enemyHealth.EnemyStats == null)
+        {
+            Debug.LogWarning(enemy.name + " is missing EnemyHealth or EnemyStats.");
+            return;
+        }
+
+        EnemyStats baseStats = enemyHealth.EnemyStats;
+
+        float scaledHealth = baseStats.MaxHealth * GetHealthMultiplier();
+        float scaledDamage = baseStats.AttackDamage * GetDamageMultiplier();
+
+        runtimeStats.Initialize(
+            scaledHealth,
+            scaledDamage,
+            baseStats.MovementSpeed,
+            baseStats.IsBoss
+        );
     }
 }
