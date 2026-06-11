@@ -6,6 +6,7 @@ public class EnemyHealth : MonoBehaviour
     private float currentHealth;
     private bool isDead = false;
     public EnemyStats EnemyStats => enemyStats;
+    private EnemyRuntimeStats runtimeStats;
 
     void OnEnable()
     {
@@ -19,13 +20,15 @@ public class EnemyHealth : MonoBehaviour
 
     void Start()
     {
-        if (enemyStats == null)
+        runtimeStats = GetComponent<EnemyRuntimeStats>();
+        if (runtimeStats != null && runtimeStats.MaxHealth > 0)
         {
-            Debug.LogError(gameObject.name + " is missing EnemyStats.");
-            enabled = false;
-            return;
+            currentHealth = runtimeStats.MaxHealth;
         }
-        currentHealth = enemyStats.MaxHealth;
+        else
+        {
+            currentHealth = enemyStats.MaxHealth;
+        }
     }
 
     void Update()
