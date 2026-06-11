@@ -2650,6 +2650,7 @@ GameObject:
   - component: {fileID: -4707527262831189488}
   - component: {fileID: 5205642864470565458}
   - component: {fileID: -7747711896555164928}
+  - component: {fileID: 8552543471561540283}
   m_Layer: 5
   m_Name: bossSkeleton
   m_TagString: Enemy
@@ -5779,6 +5780,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.3}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!114 &8552543471561540283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5763772642368634643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630e17643b8e76b42aeed6c0f4bf40fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyRuntimeStats
 --- !u!1 &6204162632420780581
 GameObject:
   m_ObjectHideFlags: 0
