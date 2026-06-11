@@ -262,7 +262,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1469452721}
   - {fileID: 1263484660}
   - {fileID: 448238086}
   m_Father: {fileID: 0}
@@ -312,15 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 1971409653560928207, guid: bd86e0e549661464cb4545c8f023024c, type: 3}
-  spawnInterval: 1
-  maxActiveEnemies: 5
-  enemiesPerWave: 5
-  enemiesAddedPerWave: 1
-  timeBetweenWaves: 3
-  bossPrefab: {fileID: 5763772642368634643, guid: 0eefa5e28d29147ad8fda02ec509d1dc, type: 3}
-  bossWaveInterval: 5
-  healthScalingPerWave: 0.15
-  damageScalingPerWave: 0.1
+  spawnInterval: 5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,7 +599,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3431018974941178782, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3431018974941178782, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       propertyPath: m_LocalRotation.y
@@ -616,7 +607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3431018974941178782, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3431018974941178782, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -653,12 +644,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5836857197505123814, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1263484662}
-    - targetCorrespondingSourceObject: {fileID: 5836857197505123814, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1263484664}
-    - targetCorrespondingSourceObject: {fileID: 5836857197505123814, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1263484666}
   m_SourcePrefab: {fileID: 100100000, guid: 9b6135a0dd8140045ab175ad224ce2f3, type: 3}
 --- !u!224 &1263484660 stripped
 RectTransform:
@@ -684,77 +669,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAutoAttack
   attackInterval: 1
   attackRange: 4
---- !u!114 &1263484664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263484661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5505fa8128ff21647a2370f75af612dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 150
---- !u!114 &1263484666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263484661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15e97f42494fa5546a22208c576a88c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CombatAnimationController
-  attackAnimationIndex: 0
-  deathAnimationIndex: 0
---- !u!1 &1469452720
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1469452721}
-  - component: {fileID: 1469452722}
-  m_Layer: 0
-  m_Name: CombatEventLogger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1469452721
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469452720}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.49412, y: -0.72704995, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 406162703}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1469452722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469452720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 965bc609570991a43bbe8942eaf80d2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CombatEventLogger
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

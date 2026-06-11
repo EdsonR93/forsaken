@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 1971409653560928207, guid: bd86e0e549661464cb4545c8f023024c, type: 3}
-  spawnInterval: 1
+  spawnInterval: 5
   maxActiveEnemies: 5
   enemiesPerWave: 5
   enemiesAddedPerWave: 1
@@ -696,7 +696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5505fa8128ff21647a2370f75af612dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 150
+  maxHealth: 100
 --- !u!114 &1263484666
 MonoBehaviour:
   m_ObjectHideFlags: 0

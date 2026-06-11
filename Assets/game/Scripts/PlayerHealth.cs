@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private EnemyStats enemyStats;
+    [SerializeField] private float maxHealth = 100f;
     private float currentHealth;
     private bool isDead = false;
-    public EnemyStats EnemyStats => enemyStats;
-    private EnemyRuntimeStats runtimeStats;
+    public bool IsDead => isDead;
 
     void OnEnable()
     {
@@ -20,15 +19,13 @@ public class EnemyHealth : MonoBehaviour
 
     void Start()
     {
-        runtimeStats = GetComponent<EnemyRuntimeStats>();
-        if (runtimeStats != null && runtimeStats.MaxHealth > 0)
+        if (maxHealth == 0)
         {
-            currentHealth = runtimeStats.MaxHealth;
+            Debug.LogError(gameObject.name + " has zero max health.");
+            enabled = false;
+            return;
         }
-        else
-        {
-            currentHealth = enemyStats.MaxHealth;
-        }
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -47,36 +44,28 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isDead) return;
         isDead = true;
-
-        EnemyMover mover = GetComponent<EnemyMover>();
-        if (mover != null)
-        {
-            mover.enabled = false;
-        }
-
-        EnemyAttack attack = GetComponent<EnemyAttack>();
-        if (attack != null)
-        {
-            attack.enabled = false;
-        }
+        //transform.rotation = Quaternion.Euler(0f, 0f, -90f);
+        GetComponent<PlayerAutoAttack>().enabled = false;
 
         Debug.Log(gameObject.name + " has died.");
         CombatEvents.TriggerDeath(transform);
-        Destroy(gameObject, 1f);
+        // Implement respawn or game over logic here
     }
 
     public void TakeDamage(float damage)
     {
+        if (isDead) return;
+
         if (damage < 0)
         {
             Debug.LogWarning("Damage must be greater than zero.");
             return;
         }
         currentHealth -= damage;
-        //Debug.Log(gameObject.name + " took " + damage + " damage. Current health: " + currentHealth);
+        Debug.Log(gameObject.name + " took " + damage + " damage. Current health: " + currentHealth);
+
         if (currentHealth <= 0)
         {
-
             Die();
         }
     }
